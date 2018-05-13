@@ -133,14 +133,7 @@
         <span id="site" style="font-size: 40px; font-weight: 700;">{{area}}</span>
         <span style="color: blue; font-weight: 700; margin-left: 120px;">(一般站) (分鐘值)</span>
       </div>
-      <div id="AQI" v-bind:class="{
-        'status_good':  this.AQI<=50,
-        'status_ordinary': this.AQI>=51 && this.AQI<=100,
-        'status_bad': this.AQI>=101 && this.AQI<=150,
-        'status_soBad': this.AQI>=151 && this.AQI<=200,
-        'status_danger': this.AQI>=201 && this.AQI<=300,
-        'status_veryDanger': this.AQI>=301
-        }">
+      <div id="AQI" v-bind:class="status">
         <div id="AQI_value">
           <span id="AQI_site">AQI</span>
           <span id="value">{{AQI}}</span>
@@ -232,8 +225,6 @@
     </div>
   </div>
   
-  
-
 </template>
 
 <script>
@@ -289,6 +280,20 @@ export default {
       else {
         return '危害';
       }
+    },
+    status() {
+      if(this.AQI<=50)
+        return 'status_good';
+      else if(this.AQI>=51 && this.AQI<=100)
+        return 'status_ordinary';
+      else if(this.AQI>=101 && this.AQI<=150)
+        return 'status_bad';
+      else if(this.AQI>=151 && this.AQI<=200)
+        return 'status_soBad';
+      else if(this.AQI>=201 && this.AQI<=300)
+        return 'status_danger';
+      else 
+        return 'status_veryDanger';
     }
   },
   methods: {
@@ -338,6 +343,7 @@ export default {
     },
     search() {
       let data = this.info;
+      console.log(data);
       if(this.site==="") this.$alertify.error("請選擇地區");
       this.area = this.site;
       for (let i=0; i<data.length; i++) {
@@ -359,6 +365,11 @@ export default {
         }
       }
       this.site = "";
+    },
+    getAQI(index) {
+      //console.log(this.info(index).AQI)
+      this.AQI = this.info(index).AQI;
+      return this.AQI;
     }
   }
 }
@@ -402,7 +413,7 @@ select {
 #result {
   display: none;
   max-width: 400px;
-  margin: auto;
+  margin:0 auto;
   margin-top: 20px;
   border:2px solid #939699;
 }
