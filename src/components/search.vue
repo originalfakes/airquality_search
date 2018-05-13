@@ -257,7 +257,7 @@ export default {
        that.info = (JSON.parse(this.responseText));
        } 
      };
-     xhttp.open("GET", "https://opendata.epa.gov.tw/webapi/api/rest/datastore/355000000I-000259?sort=SiteName&offset=0&limit=1000", true);
+     xhttp.open("GET", "", true);
      xhttp.send();
   },
   computed: {
