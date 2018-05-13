@@ -257,7 +257,7 @@ export default {
        that.info = (JSON.parse(this.responseText));
        } 
      };
-     xhttp.open("GET", "", true);
+     xhttp.open("GET", "http://opendata2.epa.gov.tw/AQI.json", true);
      xhttp.send();
   },
   computed: {
